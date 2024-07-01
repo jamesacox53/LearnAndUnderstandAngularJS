@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="myApp">
+    <head>
+        <title>Learn and Understand AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        <style>
+            html, body, input, select, textarea
+            {
+                font-size: 1.05em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="//code.angularjs.org/1.3.0-rc.1/angular.min.js"></script>
+        <script src="//code.angularjs.org/1.3.0-rc.1/angular-route.min.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AngularJS</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#/second"><i></i> Second</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+            <div ng-controller="mainController">
+                <div class="row">
+                    <div class="col-md-12">
+                    <!-- When we talk about building our own HTML reusable components.
+                        Directives in this case in AngularJS we give them names.
+                        For example search-result. We will also be giving some class
+                        name or attribute so for example result-link-href attribute.
+                    -->
+                    <search-result result-link-href="#"></search-result>
+
+                    <!-- kebab case is standard for HTML, all lower case with -
+                        separating words. Angular will wrap up the connection between
+                        the view and the model for me so we will typically have variables
+                        in javascript that match up to these attributes, elements and class
+                        names that we have in our HTML. You can't set the variable name
+                        result-link-href in javascript as - isn't allowed in name.
+
+                        So AngularJS does something called normalization. All that means
+                        is that it converts the HTML attribute names, element names,
+                        class names etc into camel case. So search-result becomes
+                        searchResult and result-link-href becomes resultLinkHref.
+                        And Vice Versa.
+                    -->
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
