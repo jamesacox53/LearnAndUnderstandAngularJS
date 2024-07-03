@@ -48,7 +48,7 @@ myApp.controller('secondController', ['$scope', '$log', '$routeParams', function
 // added the scope property then we have isolated the scope. The scope property is the
 // model. We can poke holes in the garden that the isolated scope has put up to pass
 // variables through. AngularJS does it through custom attributes on the directive
-// (normalization) and the symbols: @ and =. The @ means text binding, 
+// (normalization) and the symbols: '@', '=' and '&'. The '@' means text binding, 
 myApp.directive("searchResult", function() {
    return {
        restrict: 'AECM',

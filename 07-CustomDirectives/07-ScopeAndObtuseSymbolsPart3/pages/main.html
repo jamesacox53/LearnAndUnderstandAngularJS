@@ -1,0 +1,12 @@
+<label>Search</label>
+<input type="text" value="Doe" />
+
+<h3>Search Results</h3>
+<div class="list-group">
+    <!-- We have to pass the function the names of the parameters. These can be
+        different from the function parameter names, AngularJS will just pass them
+        in the order, it doesn't matter about the parameter names. So aPerson doesn't
+        have to match person as defined in the formattedAddress function on the $scope.
+    -->
+    <search-result person-obj="person" formatted-address-func="formattedAddress(aPerson)"></search-result>
+</div>
