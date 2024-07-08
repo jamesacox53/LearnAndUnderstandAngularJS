@@ -27,7 +27,7 @@ weatherApp.config(function ($routeProvider) {
 // SERVICES
 weatherApp.service('cityService', function() {
    
-    this.city = "New York, NY";
+    this.city = "London";
     
 });
 
@@ -43,14 +43,34 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function($scop
 }]);
 
 weatherApp.controller('forecastController', ['$scope', '$resource', '$routeParams', 'cityService', function($scope, $resource, $routeParams, cityService) {
+    function getWeatherResults(city, days, apiKey) {
+        const daysInt = parseInt(days, 10);
+        
+        const weatherAPI = $resource('https://api.openweathermap.org/data/2.5/forecast',
+            { callback: "JSON_CALLBACK" }, { get: { method: "JSONP" }});
+        
+        const endDay = new Date();
+        endDay.setDate(endDay.getDate() + daysInt);
+        endDay.setHours(0, 0, 0, 0);
+
+        return weatherAPI.get({ q: city, appid: apiKey })
+        .$promise.then(function(weatherResults) {
+            const weatherArr = weatherResults.list;
+
+            return weatherArr.filter(weatherObj => (new Date(weatherObj.dt * 1000)) < endDay);
+        });
+    };
+    
     $scope.city = cityService.city;
     $scope.days = $routeParams.days || 2;
-
-    $scope.weatherAPI = $resource('http://api.openweathermap.org/data/2.5/forecast/daily',
-        { callback: "JSON_CALLBACK" }, { get: { method: "JSONP" }});
-
-    $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: $scope.days, appid: apiKey });
-
+    
+    $scope.getWeatherResults = function() {
+        getWeatherResults($scope.city, $scope.days, apiKey)
+        .then(function(weatherArr) {
+            $scope.weatherArr = weatherArr;
+        });
+    }
+    
     $scope.convertToFahrenheit = function(degK) {
         return Math.round((1.8 * (degK - 273)) + 32);
     }
@@ -59,5 +79,5 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$routeParam
         return new Date(dt * 1000);
     }
 
-    console.log($scope.weatherResult);
+    $scope.getWeatherResults();
 }]);

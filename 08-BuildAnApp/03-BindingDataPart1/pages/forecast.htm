@@ -1,16 +1,16 @@
 Forecast for {{ city }}
 
-<div ng-repeat="w in weatherResult.list">
+<div ng-repeat="w in weatherArr">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        {{ convertToDate(w.dt) | date: 'MMM d, y' }}
+                        {{ convertToDate(w.dt) | date: 'MMM d, y HH:mm:ss' }}
                     </h3>
-                    <div class="panel-body">
-                        Daytime temperature: {{ convertToFahrenheit(w.temp.day) }}
-                    </div>
+                </div>    
+                <div class="panel-body">
+                    Temperature: {{ convertToFahrenheit(w.main.temp) }}
                 </div>
             </div>
         </div>
